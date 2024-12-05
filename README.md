@@ -6,3 +6,8 @@
 。顯示歌詞<br>
 。可建立自己的播放清單<br>
 。可上傳已下載的音樂，沒網可聽<br>
+---
+出發點:<br>
+探索QtMultimedia模組底下的QML type 跟類別<br>
+試著做出一個輕量化、UI簡潔的播放器<br>
+![image](https://github.com/user-attachments/assets/2b97576a-b98e-440b-8a28-2b37f43577f7)
