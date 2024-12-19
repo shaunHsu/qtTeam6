@@ -5,5 +5,7 @@
 前/後按鈕會自動開始播放，暫停跟STOP都有用<br>
 左邊留著放更多功能按鈕<br>
 今天沒時間放註解了 累死 (12/20 01:33)<br>
+![圖片](https://github.com/user-attachments/assets/584e4850-1859-4a0f-ad84-20967120fabd)
+
 ##
 todo: playlist/autoplay/recursive scan
