@@ -6,6 +6,8 @@
 左邊留著放更多功能按鈕<br>
 今天沒時間放註解了 累死 (12/20 01:33)<br>
 ![圖片](https://github.com/user-attachments/assets/584e4850-1859-4a0f-ad84-20967120fabd)
-
+##
+12/21<br>
+新增自動下一首功能，連結signal:mediastatuschanged到函式autoplayNext()判斷如果為EndofMedia就往下一列移動後開始播放
 ##
 todo: playlist/autoplay/recursive scan
