@@ -50,6 +50,8 @@ private slots:
 
     void on_btnPrev_clicked();
 
+    void autoplayNext();
+
 private:
     Ui::mp3Player *ui;
     QMediaPlayer *player;

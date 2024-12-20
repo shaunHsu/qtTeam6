@@ -24,6 +24,7 @@ mp3Player::mp3Player(QWidget *parent)
     //SIGNAL SLOT
     connect(player, &QMediaPlayer::positionChanged, this, &mp3Player::updateTrackPos);//播放->更新進度條
     connect(player, &QMediaPlayer::durationChanged, this, &mp3Player::updateTrackDur);//播放->更新進度條
+    connect(player, &QMediaPlayer::mediaStatusChanged,this,&mp3Player::autoplayNext);
 }
 
 mp3Player::~mp3Player()
@@ -84,6 +85,15 @@ void mp3Player::on_btnPlayTrack_clicked()
     qDebug()<<"volume:"<<audioOutput->volume();
 }
 
+void mp3Player::autoplayNext()
+{
+    if(player->mediaStatus()==QMediaPlayer::EndOfMedia)//check if the signal is endofmedia
+    {
+        ui->tracksPage->setCurrentCell(ui->tracksPage->currentRow()+1,0); //do autoplay
+        getMetaData();
+        player->play();
+    }
+}
 
 void mp3Player::on_horizontalSlider_valueChanged(int value)
 {
@@ -124,11 +134,11 @@ void mp3Player::on_btnPrev_clicked()
 
 void mp3Player::updateTrackPos(qint64 position)
 {
-    if (!isUpdatingSlider) {
+   // if (!isUpdatingSlider) {
         isUpdatingSlider = true;
         ui->trackPosSlider->setValue(static_cast<int>(position));
         isUpdatingSlider = false;
-    }
+   // }
 }
 
 void mp3Player::updateTrackTime()//當前進度->更新顯示時間
