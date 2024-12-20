@@ -27,35 +27,36 @@ public:
     ~mp3Player();
 
 private slots:
-    void on_btnScanDir_clicked();
-    void getMetaData();
-    void on_btnPlayTrack_clicked();
+    void on_btnScanDir_clicked();//掃描選取目錄內的mp3檔案(目前只能選擇資料夾路徑一次掃瞄)
 
-    void on_horizontalSlider_valueChanged(int value);
+    void getMetaData();//取得歌曲資訊
 
-    void on_btnPause_clicked();
+    void on_btnPlayTrack_clicked();//載入meta後播放
 
-    void on_btnStop_clicked();
+    void on_horizontalSlider_valueChanged(int value);//音量條訊號
 
-    void on_btnNext_clicked();
+    void on_btnPause_clicked(); //暫停按鈕
 
-    void updateTrackPos(qint64 position);
+    void on_btnStop_clicked();//停止按鈕
 
-    void updateTrackTime();
+    void on_btnNext_clicked();//下一首按鈕
 
-    void updateTrackDur();
+    void updateTrackPos(qint64 position);//歌曲timestamp->更新時間條
 
-    void on_trackPosSlider_valueChanged(int value);
+    void updateTrackTime();//更新播放時間功能
 
+    void updateTrackDur();//讀取歌曲長度
 
-    void on_btnPrev_clicked();
+    void on_trackPosSlider_valueChanged(int value);//時間條訊號->歌曲timestamp
 
-    void autoplayNext();
+    void on_btnPrev_clicked();//播放上一首
+
+    void autoplayNext();//自動播放下一首
 
 private:
     Ui::mp3Player *ui;
     QMediaPlayer *player;
     QAudioOutput *audioOutput;
-    bool isUpdatingSlider;
+    bool isUpdatingSlider; //防止時間條更新時觸發訊號的flag
 };
 #endif // MP3PLAYER_H

@@ -34,7 +34,7 @@ mp3Player::~mp3Player()
 
 void mp3Player::on_btnScanDir_clicked() //掃描目錄
 {
-    QDir dirpath = QFileDialog::getExistingDirectory(this,QStringLiteral("選擇目錄"),"C:/");
+    QDir dirpath = QFileDialog::getExistingDirectory(this,QStringLiteral("選擇目錄"),"C:/",QFileDialog::ShowDirsOnly);
     if(dirpath.isEmpty())return;//空目錄
 
     QDir dir(dirpath);
@@ -132,7 +132,7 @@ void mp3Player::on_btnPrev_clicked()
 }
 
 
-void mp3Player::updateTrackPos(qint64 position)
+void mp3Player::updateTrackPos(qint64 position)//隨播放進度更新時間條
 {
    // if (!isUpdatingSlider) {
         isUpdatingSlider = true;
