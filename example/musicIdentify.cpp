@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
         QCoreApplication::processEvents();
     }
     ShazamRequest request;
-    request.sendRequest(&fileName, processor.audioData);
+    request.sendRequest(processor.audioData);
 
     // MainWindow w;
     // w.show();

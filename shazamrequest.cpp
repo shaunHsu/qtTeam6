@@ -4,8 +4,7 @@
 #include <QNetworkReply>
 
 ShazamRequest::ShazamRequest() {}
-void ShazamRequest::sendRequest(const QString *filePath,
-                                const QByteArray &audioData) {
+void ShazamRequest::sendRequest(const QByteArray &audioData) {
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QUrl url(
         "https://shazam.p.rapidapi.com/songs/v2/detect"); //?timezone=America%2FChicago&locale=en-US

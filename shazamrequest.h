@@ -8,7 +8,7 @@ class ShazamRequest : public QObject {
         Q_OBJECT
     public:
         ShazamRequest();
-        void sendRequest(const QString* filePath, const QByteArray& audioData);
+        void sendRequest(const QByteArray& audioData);
 };
 
 #endif // SHAZAMREQUEST_H
