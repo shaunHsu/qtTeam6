@@ -1,6 +1,4 @@
 #include <QApplication>
-#include <QFile>
-#include <QNetworkAccessManager>
 
 #include "AudioProcessor.h"
 #include "mainwindow.h"
