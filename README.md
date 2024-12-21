@@ -1,17 +1,18 @@
-# win06 跨平台音樂播放器
+# shazam part
 
-41243214 何維禧
-41243225 徐祥恩
-41243227 張志華
------------------------------
-功能: 聽音樂
----
-。播放、暫停、換上/下首、控制音量<br>
-。顯示歌詞<br>
-。可建立自己的播放清單<br>
-。可上傳已下載的音樂，沒網可聽<br>
----
-出發點:<br>
-探索QtMultimedia模組底下的QML type 跟類別<br>
-試著做出一個輕量化、UI簡潔的播放器<br>
-![image](https://github.com/user-attachments/assets/2b97576a-b98e-440b-8a28-2b37f43577f7)
+需先轉換格式後再行請求
+
+```c++
+    #include "AudioProcessor.h"
+    #include "shazamrequest.h"
+
+    AudioProcessor processor;
+    processor.processAudioFile(fileName);//轉換為base64
+
+    while (!processor.isProcessingFinished) {
+        QCoreApplication::processEvents();
+    }//等待轉換完成
+
+    ShazamRequest request;
+    request.sendRequest(&fileName, processor.audioData);//將base64傳送至shazam
+```
