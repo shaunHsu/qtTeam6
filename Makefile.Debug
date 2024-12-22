@@ -1718,7 +1718,32 @@ debug/mp3player.o: mp3player.cpp mp3player.h \
 		../../../Qt/6.7.3/mingw_64/include/QtMultimedia/qwavedecoder.h \
 		../../../Qt/6.7.3/mingw_64/include/QtMultimedia/qwindowcapture.h \
 		ui_mp3player.h \
-		../../../Qt/6.7.3/mingw_64/include/QtMultimedia/QAudioDevice
+		../../../Qt/6.7.3/mingw_64/include/QtWidgets/QApplication \
+		../../../Qt/6.7.3/mingw_64/include/QtWidgets/qapplication.h \
+		../../../Qt/6.7.3/mingw_64/include/QtWidgets/QGridLayout \
+		../../../Qt/6.7.3/mingw_64/include/QtWidgets/qgridlayout.h \
+		../../../Qt/6.7.3/mingw_64/include/QtWidgets/qlayout.h \
+		../../../Qt/6.7.3/mingw_64/include/QtWidgets/qlayoutitem.h \
+		../../../Qt/6.7.3/mingw_64/include/QtWidgets/qboxlayout.h \
+		../../../Qt/6.7.3/mingw_64/include/QtWidgets/QHBoxLayout \
+		../../../Qt/6.7.3/mingw_64/include/QtWidgets/QHeaderView \
+		../../../Qt/6.7.3/mingw_64/include/QtWidgets/qheaderview.h \
+		../../../Qt/6.7.3/mingw_64/include/QtWidgets/QLabel \
+		../../../Qt/6.7.3/mingw_64/include/QtWidgets/qlabel.h \
+		../../../Qt/6.7.3/mingw_64/include/QtWidgets/QMenuBar \
+		../../../Qt/6.7.3/mingw_64/include/QtWidgets/qmenubar.h \
+		../../../Qt/6.7.3/mingw_64/include/QtWidgets/qmenu.h \
+		../../../Qt/6.7.3/mingw_64/include/QtWidgets/QPushButton \
+		../../../Qt/6.7.3/mingw_64/include/QtWidgets/qpushbutton.h \
+		../../../Qt/6.7.3/mingw_64/include/QtWidgets/qabstractbutton.h \
+		../../../Qt/6.7.3/mingw_64/include/QtWidgets/QSlider \
+		../../../Qt/6.7.3/mingw_64/include/QtWidgets/QStatusBar \
+		../../../Qt/6.7.3/mingw_64/include/QtWidgets/qstatusbar.h \
+		../../../Qt/6.7.3/mingw_64/include/QtWidgets/QTabWidget \
+		../../../Qt/6.7.3/mingw_64/include/QtWidgets/QTableWidget \
+		../../../Qt/6.7.3/mingw_64/include/QtWidgets/QWidget \
+		../../../Qt/6.7.3/mingw_64/include/QtMultimedia/QAudioDevice \
+		../../../Qt/6.7.3/mingw_64/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/mp3player.o mp3player.cpp
 
 debug/moc_mp3player.o: debug/moc_mp3player.cpp 

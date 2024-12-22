@@ -78,11 +78,34 @@ void mp3Player::getMetaData()
 
 void mp3Player::on_btnPlayTrack_clicked()
 {
-    getMetaData();
-    player->play();
-    qDebug() << "Playing"<<ui->tracksPage->item(ui->tracksPage->currentRow(),0)->text();
-    qDebug()<<"track duration:"<<player->duration();
-    qDebug()<<"volume:"<<audioOutput->volume();
+    if(currentRow != ui->tracksPage->currentRow()) {
+        getMetaData();//如果換歌，重新取得meta
+        qDebug()<<"Detected Change currentRow:"<<currentRow<<"-->"<<ui->tracksPage->currentRow()<<" reload meta data";
+    }
+
+    //if not playing, play track
+    if(player->playbackState()==QMediaPlayer::StoppedState)
+    {
+        currentRow = ui->tracksPage->currentRow(); //紀錄目前位置判斷有沒有換首
+        qDebug()<<"currentRow:"<<currentRow;
+        player->play();
+        //console output
+        qDebug() << "Playing"<<ui->tracksPage->item(ui->tracksPage->currentRow(),0)->text();
+        qDebug()<<"track duration:"<<player->duration();
+        qDebug()<<"volume:"<<audioOutput->volume();
+    }
+    else if(player->playbackState()==QMediaPlayer::PausedState)//if paused, resume
+    {
+        player->play();
+        qDebug() << "Resumed";
+    }
+    else if(player->playbackState()==QMediaPlayer::PlayingState)
+    {
+    //pause button function
+        player->pause();
+        qDebug() << "Paused";
+    }
+
 }
 
 void mp3Player::autoplayNext()
@@ -101,14 +124,6 @@ void mp3Player::on_horizontalSlider_valueChanged(int value)
         qDebug() << "Slider Value:" << value << "Volume:" << volume;
         audioOutput->setVolume(volume);
 }
-
-
-void mp3Player::on_btnPause_clicked()
-{
-    player->pause();
-    qDebug() << "Paused";
-}
-
 
 void mp3Player::on_btnStop_clicked()
 {
