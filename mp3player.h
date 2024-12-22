@@ -35,8 +35,6 @@ private slots:
 
     void on_horizontalSlider_valueChanged(int value);//音量條訊號
 
-    void on_btnPause_clicked(); //暫停按鈕
-
     void on_btnStop_clicked();//停止按鈕
 
     void on_btnNext_clicked();//下一首按鈕
@@ -57,6 +55,7 @@ private:
     Ui::mp3Player *ui;
     QMediaPlayer *player;
     QAudioOutput *audioOutput;
-    bool isUpdatingSlider; //防止時間條更新時觸發訊號的flag
+    bool    isUpdatingSlider; //防止時間條更新時觸發訊號的flag
+    int     currentRow;//目前播放的歌曲位置
 };
 #endif // MP3PLAYER_H

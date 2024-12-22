@@ -32,11 +32,10 @@ public:
     QWidget *centralwidget;
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
+    QPushButton *btnPlayTrack;
     QPushButton *btnNext;
     QPushButton *btnStop;
     QPushButton *btnPrev;
-    QPushButton *btnPause;
-    QPushButton *btnPlayTrack;
     QWidget *horizontalLayoutWidget;
     QHBoxLayout *horizontalLayout;
     QLabel *lblVolume;
@@ -66,30 +65,25 @@ public:
         gridLayout = new QGridLayout(gridLayoutWidget);
         gridLayout->setObjectName("gridLayout");
         gridLayout->setContentsMargins(0, 0, 0, 0);
-        btnNext = new QPushButton(gridLayoutWidget);
-        btnNext->setObjectName("btnNext");
-
-        gridLayout->addWidget(btnNext, 0, 4, 1, 1);
-
-        btnStop = new QPushButton(gridLayoutWidget);
-        btnStop->setObjectName("btnStop");
-
-        gridLayout->addWidget(btnStop, 0, 2, 1, 1);
-
-        btnPrev = new QPushButton(gridLayoutWidget);
-        btnPrev->setObjectName("btnPrev");
-
-        gridLayout->addWidget(btnPrev, 0, 3, 1, 1);
-
-        btnPause = new QPushButton(gridLayoutWidget);
-        btnPause->setObjectName("btnPause");
-
-        gridLayout->addWidget(btnPause, 0, 1, 1, 1);
-
         btnPlayTrack = new QPushButton(gridLayoutWidget);
         btnPlayTrack->setObjectName("btnPlayTrack");
 
         gridLayout->addWidget(btnPlayTrack, 0, 0, 1, 1);
+
+        btnNext = new QPushButton(gridLayoutWidget);
+        btnNext->setObjectName("btnNext");
+
+        gridLayout->addWidget(btnNext, 0, 3, 1, 1);
+
+        btnStop = new QPushButton(gridLayoutWidget);
+        btnStop->setObjectName("btnStop");
+
+        gridLayout->addWidget(btnStop, 0, 1, 1, 1);
+
+        btnPrev = new QPushButton(gridLayoutWidget);
+        btnPrev->setObjectName("btnPrev");
+
+        gridLayout->addWidget(btnPrev, 0, 2, 1, 1);
 
         horizontalLayoutWidget = new QWidget(centralwidget);
         horizontalLayoutWidget->setObjectName("horizontalLayoutWidget");
@@ -157,11 +151,10 @@ public:
     void retranslateUi(QMainWindow *mp3Player)
     {
         mp3Player->setWindowTitle(QCoreApplication::translate("mp3Player", "mp3Player", nullptr));
+        btnPlayTrack->setText(QCoreApplication::translate("mp3Player", "Play/Pause", nullptr));
         btnNext->setText(QCoreApplication::translate("mp3Player", "Next", nullptr));
         btnStop->setText(QCoreApplication::translate("mp3Player", "Stop", nullptr));
         btnPrev->setText(QCoreApplication::translate("mp3Player", "Prev", nullptr));
-        btnPause->setText(QCoreApplication::translate("mp3Player", "Pause", nullptr));
-        btnPlayTrack->setText(QCoreApplication::translate("mp3Player", "Play", nullptr));
         lblVolume->setText(QCoreApplication::translate("mp3Player", "Volume", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(Tab1), QCoreApplication::translate("mp3Player", "Tracks", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(Tab2), QCoreApplication::translate("mp3Player", "Now Playing", nullptr));
