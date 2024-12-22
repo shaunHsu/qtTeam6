@@ -148,7 +148,7 @@ public:
 
         retranslateUi(mp3Player);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(mp3Player);
