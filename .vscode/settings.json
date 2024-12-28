@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.tcc": "cpp",
+        "string": "cpp",
+        "qnetworkrequest": "cpp",
+        "new": "cpp",
+        "qnetworkaccessmanager": "cpp",
+        "qapplication": "cpp"
+    }
+}

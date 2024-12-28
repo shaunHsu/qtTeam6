@@ -1,4 +1,4 @@
-QT       += core gui widgets multimedia
+QT       += core gui widgets multimedia network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -9,11 +9,18 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    AudioProcessor.cpp \
+    apiTest.cpp \
     main.cpp \
-    mp3player.cpp
+    mp3player.cpp \
+    shazamrequest.cpp
 
 HEADERS += \
-    mp3player.h
+    AudioProcessor.h \
+    AudioProcessor.h \
+    mp3player.h \
+    shazamrequest.h \
+    shazamrequest.h
 
 FORMS += \
     mp3player.ui
