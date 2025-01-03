@@ -18,4 +18,11 @@ QMediaPlayer::PlayingStateplaying: 目前有在播放東西，暫停<br>
 QMediaPlayer::PausedState:  目前暫停中，繼續播放<br>
 就算在暫停中移動進度拉條，拉條訊號也會即時更新播放進度，不用擔心繼續播放時player還在舊位置<br>
 ##
-todo: playlist/recursive scan
+1/3<br>
+更改歌曲加入的方式，新歌曲會被加到目前的歌單後面，加入完後會執行一次掃描，路徑重複的檔案會被移除<br>
+加入雙擊播放功能<br>
+UI改動:<br>
+mainlayout延伸<br>
+tab物件延伸<br>
+IDE中qDebug訊息補充<br>
+![圖片](https://github.com/user-attachments/assets/0dd66382-18ed-43be-8072-b1811a151369)

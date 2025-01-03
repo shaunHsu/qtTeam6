@@ -51,11 +51,15 @@ private slots:
 
     void autoplayNext();//自動播放下一首
 
+
+    void on_tracksPage_cellDoubleClicked(int row, int column);
+
 private:
-    Ui::mp3Player *ui;
-    QMediaPlayer *player;
-    QAudioOutput *audioOutput;
-    bool    isUpdatingSlider; //防止時間條更新時觸發訊號的flag
-    int     currentRow;//目前播放的歌曲位置
+    Ui::mp3Player   *ui;
+    QMediaPlayer    *player;
+    QAudioOutput    *audioOutput;
+    bool            isUpdatingSlider; //防止時間條更新時觸發訊號的flag
+    int             currentRow;//目前播放的歌曲位置
+    int             existingCount;
 };
 #endif // MP3PLAYER_H
