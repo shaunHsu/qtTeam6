@@ -14,82 +14,13 @@
    <string>mp3Player</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="gridLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>100</x>
-      <y>510</y>
-      <width>631</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
-      <widget class="QPushButton" name="btnPlayTrack">
-       <property name="text">
-        <string>Play/Pause</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="3">
-      <widget class="QPushButton" name="btnNext">
-       <property name="text">
-        <string>Next</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QPushButton" name="btnStop">
-       <property name="text">
-        <string>Stop</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="QPushButton" name="btnPrev">
-       <property name="text">
-        <string>Prev</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>530</x>
-      <y>440</y>
-      <width>211</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="lblVolume">
-       <property name="text">
-        <string>Volume</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QSlider" name="horizontalSlider">
-       <property name="sliderPosition">
-        <number>20</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Orientation::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>0</y>
-      <width>701</width>
-      <height>411</height>
+      <x>10</x>
+      <y>10</y>
+      <width>781</width>
+      <height>401</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -104,8 +35,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>701</width>
-        <height>391</height>
+        <width>781</width>
+        <height>381</height>
        </rect>
       </property>
      </widget>
@@ -119,45 +50,19 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>701</width>
+        <width>781</width>
         <height>381</height>
        </rect>
       </property>
      </widget>
     </widget>
    </widget>
-   <widget class="QPushButton" name="btnScanDir">
+   <widget class="QLabel" name="InfoLabel">
     <property name="geometry">
      <rect>
-      <x>690</x>
-      <y>410</y>
-      <width>97</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Scan..</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="TrackDuration">
-    <property name="geometry">
-     <rect>
-      <x>430</x>
-      <y>450</y>
-      <width>91</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="TrackTitle">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>420</y>
-      <width>431</width>
+      <x>9</x>
+      <y>550</y>
+      <width>781</width>
       <height>20</height>
      </rect>
     </property>
@@ -165,18 +70,111 @@
      <string/>
     </property>
    </widget>
-   <widget class="QSlider" name="trackPosSlider">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>450</y>
-      <width>321</width>
-      <height>21</height>
+      <x>20</x>
+      <y>410</y>
+      <width>771</width>
+      <height>141</height>
      </rect>
     </property>
-    <property name="orientation">
-     <enum>Qt::Orientation::Horizontal</enum>
-    </property>
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="2" column="0" colspan="4">
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QPushButton" name="btnPlayTrack">
+         <property name="text">
+          <string>Play/Pause</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QPushButton" name="btnNext">
+         <property name="text">
+          <string>Next</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="btnStop">
+         <property name="text">
+          <string>Stop</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QPushButton" name="btnPrev">
+         <property name="text">
+          <string>Prev</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="1" column="3">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="lblVolume">
+         <property name="text">
+          <string>Volume</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSlider" name="horizontalSlider">
+         <property name="sliderPosition">
+          <number>20</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="1" column="0">
+      <widget class="QSlider" name="trackPosSlider">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" colspan="2">
+      <widget class="QLabel" name="TrackTitle">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="TrackDuration">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="QPushButton" name="btnScanDir">
+       <property name="text">
+        <string>Scan..</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

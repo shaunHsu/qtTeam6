@@ -2,16 +2,20 @@
 #include "ui_mp3player.h"
 #include <QAudioDevice>
 #include <QDebug>
+#include <QStatusBar>
 mp3Player::mp3Player(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::mp3Player)
 {
+
     ui->setupUi(this);
     player = new QMediaPlayer(this); //實體化player
     audioOutput = new QAudioOutput(this);//加入audioOut
     player->setAudioOutput(audioOutput);//設定player的audioOutput
     audioOutput->setVolume(0.2);//設定音量
     //設定上方欄位tag
+    ui->statusbar->showMessage(QStringLiteral("請按下Scan選擇目標資料夾掃描mp3檔案..."));
+    existingCount = 0;
     ui->tracksPage->setColumnCount(3);//曲名 長度 檔案路徑
     ui->playlistPage->setColumnCount(3);
     //set first column width
@@ -34,27 +38,62 @@ mp3Player::~mp3Player()
 
 void mp3Player::on_btnScanDir_clicked() //掃描目錄
 {
-    QDir dirpath = QFileDialog::getExistingDirectory(this,QStringLiteral("選擇目錄"),"C:/",QFileDialog::ShowDirsOnly);
+    //custom file dialog
+    QFileDialog fileview;
+    fileview.setFileMode(QFileDialog::Directory);
+    fileview.setViewMode(QFileDialog::Detail); //需要看見內容
+    QDir dirpath = QFileDialog::getExistingDirectory(this,QStringLiteral("選擇目錄"),"",QFileDialog::ShowDirsOnly);
     if(dirpath.isEmpty())return;//空目錄
+    ui->statusbar->showMessage(QStringLiteral("掃描目錄: ")+dirpath.absolutePath());
 
     QDir dir(dirpath);
     QStringList filters;//過濾條件
     filters<<"*.mp3";
     //讀入檔案
     QStringList fileList = dir.entryList(filters,QDir::Files);
-    ui->tracksPage->setRowCount(fileList.size());//有幾筆設幾列
+    qDebug()<<"reading filelist size: "<<fileList.size();//debug告知讀取筆數
+    qDebug()<<"existingCount: "<<existingCount;
+    //設定歌單
+    ui->tracksPage->setRowCount(existingCount+fileList.size());//有幾筆設幾列，加上已存在的歌單
+    qDebug()<<"setting rowCount+ "<<fileList.size();
+    qDebug()<<"rowCount: "<<ui->tracksPage->rowCount();
+
     for(int i=0;i<fileList.size();i++)
     {
         QFileInfo fileInfo(dirpath.absolutePath()+"/"+fileList.at(i));//絕對路徑
+        qDebug()<<"reading file"<<fileInfo.fileName()<<" at filelist:"<<i;
         float filesize = fileInfo.size();
         QString filesizeMB;filesizeMB.setNum(filesize/(1024*1024),'f',2);//大小轉換至MB
+        //從stringlist取得檔案資訊
         QTableWidgetItem *trackname = new QTableWidgetItem(fileInfo.fileName());
         QTableWidgetItem *size = new QTableWidgetItem(filesizeMB+"MB");
         QTableWidgetItem *trackPath = new QTableWidgetItem(fileInfo.absoluteFilePath());
-        ui->tracksPage->setItem(i,0,trackname);
-        ui->tracksPage->setItem(i,1,size);
-        ui->tracksPage->setItem(i,2,trackPath);
+        int row = existingCount+i;
+        ui->tracksPage->setItem(row,0,trackname);
+        ui->tracksPage->setItem(row,1,size);
+        ui->tracksPage->setItem(row,2,trackPath);
+        qDebug()<<"inserted row: "<<row<<"with item:"<<fileInfo.fileName();
     }
+    existingCount+=fileList.size();//更新已存在數量
+    qDebug()<<"existing count: "<<existingCount;
+    //檢查table有沒有row重複
+       for(int i=0;i<ui->tracksPage->rowCount();i++)
+        {
+        for(int j=i+1;j<ui->tracksPage->rowCount();j++){
+           if(ui->tracksPage->item(i,2)->text()==ui->tracksPage->item(j,2)->text()){ //如果檔案路徑重複
+                ui->tracksPage->removeRow(j);
+                existingCount--;
+                QString errmsg = "detected duplicate at row: "+ QString::number(j+1)+", removed row "+QString::number(j+1);
+                ui->statusbar->showMessage(errmsg);
+                qDebug()<<errmsg;
+                qDebug()<<"existing count: "<<existingCount;
+                ui->InfoLabel->setText(errmsg);
+                }
+            }
+        }
+
+
+    //預備第一首
     ui->tracksPage->selectColumn(0);
     qDebug()<<fileList;
     audioOutput->setVolume(0.2);
