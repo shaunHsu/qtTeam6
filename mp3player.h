@@ -52,6 +52,8 @@ private slots:
     void autoplayNext();//自動播放下一首
 
 
+    void on_tracksPage_cellDoubleClicked(int row, int column);
+
 private:
     Ui::mp3Player   *ui;
     QMediaPlayer    *player;

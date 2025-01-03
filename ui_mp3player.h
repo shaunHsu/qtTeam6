@@ -31,14 +31,9 @@ class Ui_mp3Player
 {
 public:
     QWidget *centralwidget;
-    QTabWidget *tabWidget;
-    QWidget *Tab1;
-    QTableWidget *tracksPage;
-    QWidget *Tab2;
-    QTableWidget *playlistPage;
-    QLabel *InfoLabel;
-    QWidget *widget;
-    QGridLayout *gridLayout_2;
+    QGridLayout *gridLayout_4;
+    QGridLayout *mainlay;
+    QGridLayout *playerctrl;
     QGridLayout *gridLayout;
     QPushButton *btnPlayTrack;
     QPushButton *btnNext;
@@ -52,6 +47,14 @@ public:
     QLabel *TrackDuration;
     QPushButton *btnScanDir;
     QSpacerItem *horizontalSpacer;
+    QTabWidget *tabWidget;
+    QWidget *Tab1;
+    QGridLayout *gridLayout_2;
+    QTableWidget *tracksPage;
+    QWidget *Tab2;
+    QGridLayout *gridLayout_5;
+    QTableWidget *playlistPage;
+    QLabel *InfoLabel;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -60,65 +63,53 @@ public:
         if (mp3Player->objectName().isEmpty())
             mp3Player->setObjectName("mp3Player");
         mp3Player->resize(800, 600);
+        QSizePolicy sizePolicy(QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(mp3Player->sizePolicy().hasHeightForWidth());
+        mp3Player->setSizePolicy(sizePolicy);
         centralwidget = new QWidget(mp3Player);
         centralwidget->setObjectName("centralwidget");
-        tabWidget = new QTabWidget(centralwidget);
-        tabWidget->setObjectName("tabWidget");
-        tabWidget->setGeometry(QRect(10, 10, 781, 401));
-        Tab1 = new QWidget();
-        Tab1->setObjectName("Tab1");
-        tracksPage = new QTableWidget(Tab1);
-        tracksPage->setObjectName("tracksPage");
-        tracksPage->setGeometry(QRect(0, 0, 781, 381));
-        tabWidget->addTab(Tab1, QString());
-        Tab2 = new QWidget();
-        Tab2->setObjectName("Tab2");
-        playlistPage = new QTableWidget(Tab2);
-        playlistPage->setObjectName("playlistPage");
-        playlistPage->setGeometry(QRect(0, 0, 781, 381));
-        tabWidget->addTab(Tab2, QString());
-        InfoLabel = new QLabel(centralwidget);
-        InfoLabel->setObjectName("InfoLabel");
-        InfoLabel->setGeometry(QRect(9, 550, 781, 20));
-        widget = new QWidget(centralwidget);
-        widget->setObjectName("widget");
-        widget->setGeometry(QRect(20, 410, 771, 141));
-        gridLayout_2 = new QGridLayout(widget);
-        gridLayout_2->setObjectName("gridLayout_2");
-        gridLayout_2->setContentsMargins(0, 0, 0, 0);
+        gridLayout_4 = new QGridLayout(centralwidget);
+        gridLayout_4->setObjectName("gridLayout_4");
+        mainlay = new QGridLayout();
+        mainlay->setObjectName("mainlay");
+        mainlay->setSizeConstraint(QLayout::SizeConstraint::SetMaximumSize);
+        playerctrl = new QGridLayout();
+        playerctrl->setObjectName("playerctrl");
         gridLayout = new QGridLayout();
         gridLayout->setObjectName("gridLayout");
-        btnPlayTrack = new QPushButton(widget);
+        btnPlayTrack = new QPushButton(centralwidget);
         btnPlayTrack->setObjectName("btnPlayTrack");
 
         gridLayout->addWidget(btnPlayTrack, 0, 0, 1, 1);
 
-        btnNext = new QPushButton(widget);
+        btnNext = new QPushButton(centralwidget);
         btnNext->setObjectName("btnNext");
 
         gridLayout->addWidget(btnNext, 0, 3, 1, 1);
 
-        btnStop = new QPushButton(widget);
+        btnStop = new QPushButton(centralwidget);
         btnStop->setObjectName("btnStop");
 
         gridLayout->addWidget(btnStop, 0, 1, 1, 1);
 
-        btnPrev = new QPushButton(widget);
+        btnPrev = new QPushButton(centralwidget);
         btnPrev->setObjectName("btnPrev");
 
         gridLayout->addWidget(btnPrev, 0, 2, 1, 1);
 
 
-        gridLayout_2->addLayout(gridLayout, 2, 0, 1, 4);
+        playerctrl->addLayout(gridLayout, 2, 0, 1, 4);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName("horizontalLayout");
-        lblVolume = new QLabel(widget);
+        lblVolume = new QLabel(centralwidget);
         lblVolume->setObjectName("lblVolume");
 
         horizontalLayout->addWidget(lblVolume);
 
-        horizontalSlider = new QSlider(widget);
+        horizontalSlider = new QSlider(centralwidget);
         horizontalSlider->setObjectName("horizontalSlider");
         horizontalSlider->setSliderPosition(20);
         horizontalSlider->setOrientation(Qt::Orientation::Horizontal);
@@ -126,32 +117,78 @@ public:
         horizontalLayout->addWidget(horizontalSlider);
 
 
-        gridLayout_2->addLayout(horizontalLayout, 1, 3, 1, 1);
+        playerctrl->addLayout(horizontalLayout, 1, 3, 1, 1);
 
-        trackPosSlider = new QSlider(widget);
+        trackPosSlider = new QSlider(centralwidget);
         trackPosSlider->setObjectName("trackPosSlider");
         trackPosSlider->setOrientation(Qt::Orientation::Horizontal);
 
-        gridLayout_2->addWidget(trackPosSlider, 1, 0, 1, 1);
+        playerctrl->addWidget(trackPosSlider, 1, 0, 1, 1);
 
-        TrackTitle = new QLabel(widget);
+        TrackTitle = new QLabel(centralwidget);
         TrackTitle->setObjectName("TrackTitle");
 
-        gridLayout_2->addWidget(TrackTitle, 0, 0, 1, 2);
+        playerctrl->addWidget(TrackTitle, 0, 0, 1, 2);
 
-        TrackDuration = new QLabel(widget);
+        TrackDuration = new QLabel(centralwidget);
         TrackDuration->setObjectName("TrackDuration");
 
-        gridLayout_2->addWidget(TrackDuration, 1, 1, 1, 1);
+        playerctrl->addWidget(TrackDuration, 1, 1, 1, 1);
 
-        btnScanDir = new QPushButton(widget);
+        btnScanDir = new QPushButton(centralwidget);
         btnScanDir->setObjectName("btnScanDir");
 
-        gridLayout_2->addWidget(btnScanDir, 0, 3, 1, 1);
+        playerctrl->addWidget(btnScanDir, 0, 3, 1, 1);
 
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
-        gridLayout_2->addItem(horizontalSpacer, 1, 2, 1, 1);
+        playerctrl->addItem(horizontalSpacer, 1, 2, 1, 1);
+
+
+        mainlay->addLayout(playerctrl, 1, 0, 1, 1);
+
+        tabWidget = new QTabWidget(centralwidget);
+        tabWidget->setObjectName("tabWidget");
+        sizePolicy.setHeightForWidth(tabWidget->sizePolicy().hasHeightForWidth());
+        tabWidget->setSizePolicy(sizePolicy);
+        Tab1 = new QWidget();
+        Tab1->setObjectName("Tab1");
+        sizePolicy.setHeightForWidth(Tab1->sizePolicy().hasHeightForWidth());
+        Tab1->setSizePolicy(sizePolicy);
+        gridLayout_2 = new QGridLayout(Tab1);
+        gridLayout_2->setObjectName("gridLayout_2");
+        tracksPage = new QTableWidget(Tab1);
+        tracksPage->setObjectName("tracksPage");
+        sizePolicy.setHeightForWidth(tracksPage->sizePolicy().hasHeightForWidth());
+        tracksPage->setSizePolicy(sizePolicy);
+        tracksPage->setMaximumSize(QSize(20000, 20000));
+
+        gridLayout_2->addWidget(tracksPage, 0, 0, 1, 1);
+
+        tabWidget->addTab(Tab1, QString());
+        Tab2 = new QWidget();
+        Tab2->setObjectName("Tab2");
+        sizePolicy.setHeightForWidth(Tab2->sizePolicy().hasHeightForWidth());
+        Tab2->setSizePolicy(sizePolicy);
+        gridLayout_5 = new QGridLayout(Tab2);
+        gridLayout_5->setObjectName("gridLayout_5");
+        playlistPage = new QTableWidget(Tab2);
+        playlistPage->setObjectName("playlistPage");
+        playlistPage->setMaximumSize(QSize(20000, 20000));
+
+        gridLayout_5->addWidget(playlistPage, 0, 0, 1, 1);
+
+        tabWidget->addTab(Tab2, QString());
+
+        mainlay->addWidget(tabWidget, 0, 0, 1, 1);
+
+
+        gridLayout_4->addLayout(mainlay, 0, 0, 1, 1);
+
+        InfoLabel = new QLabel(centralwidget);
+        InfoLabel->setObjectName("InfoLabel");
+
+        gridLayout_4->addWidget(InfoLabel, 1, 0, 1, 1);
 
         mp3Player->setCentralWidget(centralwidget);
         menubar = new QMenuBar(mp3Player);
@@ -173,9 +210,6 @@ public:
     void retranslateUi(QMainWindow *mp3Player)
     {
         mp3Player->setWindowTitle(QCoreApplication::translate("mp3Player", "mp3Player", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(Tab1), QCoreApplication::translate("mp3Player", "Tracks", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(Tab2), QCoreApplication::translate("mp3Player", "Now Playing", nullptr));
-        InfoLabel->setText(QString());
         btnPlayTrack->setText(QCoreApplication::translate("mp3Player", "Play/Pause", nullptr));
         btnNext->setText(QCoreApplication::translate("mp3Player", "Next", nullptr));
         btnStop->setText(QCoreApplication::translate("mp3Player", "Stop", nullptr));
@@ -184,6 +218,9 @@ public:
         TrackTitle->setText(QString());
         TrackDuration->setText(QString());
         btnScanDir->setText(QCoreApplication::translate("mp3Player", "Scan..", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(Tab1), QCoreApplication::translate("mp3Player", "Tracks", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(Tab2), QCoreApplication::translate("mp3Player", "Now Playing", nullptr));
+        InfoLabel->setText(QString());
     } // retranslateUi
 
 };

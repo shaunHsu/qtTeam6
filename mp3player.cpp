@@ -73,6 +73,7 @@ void mp3Player::on_btnScanDir_clicked() //掃描目錄
         ui->tracksPage->setItem(row,1,size);
         ui->tracksPage->setItem(row,2,trackPath);
         qDebug()<<"inserted row: "<<row<<"with item:"<<fileInfo.fileName();
+        ui->tracksPage->resizeRowsToContents(); //自動調整列長度
     }
     existingCount+=fileList.size();//更新已存在數量
     qDebug()<<"existing count: "<<existingCount;
@@ -224,3 +225,10 @@ void mp3Player::on_trackPosSlider_valueChanged(int value)//進度條->主要更�
 
 
 
+
+void mp3Player::on_tracksPage_cellDoubleClicked(int row, int column)
+{
+    ui->tracksPage->setCurrentCell(row,0);
+    getMetaData();
+    player->play();
+}
