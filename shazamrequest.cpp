@@ -50,15 +50,9 @@ QStringList ShazamRequest::getInfo(const QByteArray &response) {
     QJsonDocument jsonDoc(QJsonDocument::fromJson(response));
     QJsonObject jsonObj = jsonDoc.object();
     QJsonObject trackObj = jsonObj["track"].toObject();
-<<<<<<< HEAD
     QString title = trackObj["title"].toString().trimmed();
     QString artist = trackObj["subtitle"].toString().trimmed();
     QString url = trackObj["url"].toString().trimmed();
-=======
-    QString title = trackObj["title"].toString();
-    QString artist = trackObj["subtitle"].toString();
-    QString url = trackObj["url"].toString();
->>>>>>> 8fb7cdd362934e82b293973cd2788fdeab016df7
     QStringList info;
     info << title << artist << url;
 
