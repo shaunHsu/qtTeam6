@@ -4,7 +4,7 @@
 #include "getlyrics.h"
 #include "shazamrequest.h"
 
-void apiTest() {
+void apiTest() { // 直接把這些內容複製到你要的檔案就好
     QString fileName = "C:/code/qt/qtTeam6/example_audio/test1.mp3";
 
     AudioProcessor *processor = new AudioProcessor();
@@ -18,7 +18,8 @@ void apiTest() {
         // for (QString info : infos) {
         //     qDebug() << info;
         // }
-        qDebug() << lyrics->getLyrics(infos.at(0)); // 取得歌名
+        qDebug() << infos.at(0);                    // 取得歌名
+        qDebug() << lyrics->getLyrics(infos.at(0)); // 取得歌詞
     });
 
     processor->processAudioFile(fileName);

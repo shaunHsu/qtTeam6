@@ -21,7 +21,6 @@ HEADERS += \
     AudioProcessor.h \
     getlyrics.h \
     mp3player.h \
-    shazamrequest.h \
     shazamrequest.h
 
 FORMS += \
