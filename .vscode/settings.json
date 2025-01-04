@@ -5,6 +5,7 @@
         "qnetworkrequest": "cpp",
         "new": "cpp",
         "qnetworkaccessmanager": "cpp",
+<<<<<<< HEAD
         "qapplication": "cpp",
         "qstring": "cpp",
         "array": "cpp",
@@ -12,5 +13,8 @@
         "tuple": "cpp",
         "utility": "cpp",
         "variant": "cpp"
+=======
+        "qapplication": "cpp"
+>>>>>>> 8fb7cdd362934e82b293973cd2788fdeab016df7
     }
 }
