@@ -116,6 +116,7 @@ QString GetLyrics::getLyricsText() {
         qDebug() << "Lyrics written to text file."<<tempFile;
      }
 
+
     qDebug() << "Parse lyrics text done.";
     return results.join(" ");
 }

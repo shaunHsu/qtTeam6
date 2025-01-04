@@ -25,6 +25,8 @@ class mp3Player : public QMainWindow
 {
     Q_OBJECT
 
+friend class GetLyrics;
+
 public:
     mp3Player(QWidget *parent = nullptr);
     ~mp3Player();
@@ -59,6 +61,7 @@ private slots:
     void apiTest(QString);//測試API
 
 private:
+    GetLyrics       *lyricsBot;
     AudioProcessor  *processor;
     Ui::mp3Player   *ui;
     QMediaPlayer    *player;
