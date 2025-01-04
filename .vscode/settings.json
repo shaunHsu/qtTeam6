@@ -5,6 +5,12 @@
         "qnetworkrequest": "cpp",
         "new": "cpp",
         "qnetworkaccessmanager": "cpp",
-        "qapplication": "cpp"
+        "qapplication": "cpp",
+        "qstring": "cpp",
+        "array": "cpp",
+        "istream": "cpp",
+        "tuple": "cpp",
+        "utility": "cpp",
+        "variant": "cpp"
     }
 }

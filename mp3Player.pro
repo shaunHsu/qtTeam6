@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     AudioProcessor.cpp \
     apiTest.cpp \
+    getlyrics.cpp \
     main.cpp \
     mp3player.cpp \
     shazamrequest.cpp
@@ -18,6 +19,7 @@ SOURCES += \
 HEADERS += \
     AudioProcessor.h \
     AudioProcessor.h \
+    getlyrics.h \
     mp3player.h \
     shazamrequest.h \
     shazamrequest.h
