@@ -1,5 +1,9 @@
 #include "shazamrequest.h"
 
+#include <QFile>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 
@@ -22,11 +26,41 @@ void ShazamRequest::sendRequest(const QByteArray &audioData) {
         int statusCode =
             reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
         if (reply->error() == QNetworkReply::NoError) {
-            QByteArray response = reply->readAll();
-            qDebug() << "Response:" << response;
+            response = reply->readAll();
+            emit finished();
+            // QString jsonString = QString::fromUtf8(response);
+            // QFile jsonFile("response.json");
+
+            // if (jsonFile.open(QIODevice::WriteOnly)) {
+            //     jsonFile.write(jsonString.toUtf8());
+            //     jsonFile.close();
+            //     qDebug() << "Response written to JSON file.";
+            // } else {
+            //     qDebug() << "Failed to open file for writing.";
+            // }
+            // qDebug() << "Response:" << response;
         } else {
             qDebug() << "Error:" << reply->errorString();
         }
         reply->deleteLater();
     });
+}
+QStringList ShazamRequest::getInfo(const QByteArray &response) {
+    // Parse the response
+    QJsonDocument jsonDoc(QJsonDocument::fromJson(response));
+    QJsonObject jsonObj = jsonDoc.object();
+    QJsonObject trackObj = jsonObj["track"].toObject();
+<<<<<<< HEAD
+    QString title = trackObj["title"].toString().trimmed();
+    QString artist = trackObj["subtitle"].toString().trimmed();
+    QString url = trackObj["url"].toString().trimmed();
+=======
+    QString title = trackObj["title"].toString();
+    QString artist = trackObj["subtitle"].toString();
+    QString url = trackObj["url"].toString();
+>>>>>>> 8fb7cdd362934e82b293973cd2788fdeab016df7
+    QStringList info;
+    info << title << artist << url;
+
+    return info;
 }

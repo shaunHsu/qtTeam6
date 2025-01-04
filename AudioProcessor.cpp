@@ -94,6 +94,7 @@ void AudioProcessor::handleBuffer() {
         audioData = processedData.toBase64();
         isProcessingFinished = true;
         qDebug() << "audio data processed";
+        emit processingFinished();
 
         // QByteArray base64Data = processedData.toBase64();
         // qDebug() << "Base64 output";
@@ -115,6 +116,7 @@ void AudioProcessor::handleFinished() {
         audioData = processedData.toBase64();
         isProcessingFinished = true;
         qDebug() << "audio data processed";
+        emit processingFinished();
         // QByteArray base64Data = processedData.toBase64();
         // qDebug() << "Base64 output (less than 5 seconds)";
 

@@ -16,6 +16,9 @@ class AudioProcessor : public QObject {
         bool isProcessingFinished = false;
         QByteArray audioData;
 
+    signals:
+        void processingFinished();
+
     private slots:
         void handleBuffer();
         void handleFinished();
