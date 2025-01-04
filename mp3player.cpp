@@ -1,8 +1,13 @@
 #include "mp3player.h"
 #include "ui_mp3player.h"
+
+#include <QThread>
 #include <QAudioDevice>
 #include <QDebug>
 #include <QStatusBar>
+
+#define LYRFILE "./lyricsTemp.txt"
+#define LYRHTML "./urlTemp.html"
 mp3Player::mp3Player(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::mp3Player)
@@ -17,14 +22,12 @@ mp3Player::mp3Player(QWidget *parent)
     ui->statusbar->showMessage(QStringLiteral("請按下Scan選擇目標資料夾掃描mp3檔案..."));
     existingCount = 0;
     ui->tracksPage->setColumnCount(3);//曲名 長度 檔案路徑
-    ui->playlistPage->setColumnCount(3);
     //set first column width
     ui->tracksPage->setColumnWidth(0,200);
     ui->tracksPage->setColumnWidth(2,500);
     QStringList colTitle;
     colTitle<<QStringLiteral("曲名")<<QStringLiteral("檔案大小")<<QStringLiteral("檔案路徑");
     ui->tracksPage->setHorizontalHeaderLabels(colTitle);
-    ui->playlistPage->setHorizontalHeaderLabels(colTitle);
     //SIGNAL SLOT
     connect(player, &QMediaPlayer::positionChanged, this, &mp3Player::updateTrackPos);//播放->更新進度條
     connect(player, &QMediaPlayer::durationChanged, this, &mp3Player::updateTrackDur);//播放->更新進度條
@@ -102,6 +105,44 @@ void mp3Player::on_btnScanDir_clicked() //掃描目錄
 }
 
 
+void mp3Player::apiTest(QString fileName) {
+    ui->statusbar->clearMessage();
+    AudioProcessor *processor = new AudioProcessor();
+    ShazamRequest *request = new ShazamRequest();
+    GetLyrics *lyrics = new GetLyrics();
+
+    QObject::connect(processor, &AudioProcessor::processingFinished,
+                     [=]() { request->sendRequest(processor->audioData); });
+    QObject::connect(request, &ShazamRequest::finished, [=]() {
+        QStringList infos = request->getInfo(request->response);
+        // for (QString info : infos) {
+        //     qDebug() << info;
+        // }
+        qDebug() << lyrics->getLyrics(infos.at(0)); // 取得歌名
+    });
+
+    QFile lyricsFile,lyricsHtml;; //目前選擇兩種都讀
+    lyricsFile.setFileName(LYRFILE);
+    lyricsHtml.setFileName(LYRHTML);
+    processor->processAudioFile(fileName); //處理音檔
+    //成功獲取線上歌詞
+    //從檔案讀取歌詞頁
+
+    if(lyricsFile.open(QIODevice::ReadOnly|QIODevice::Text)&&lyricsHtml.open(QIODevice::ReadOnly))
+    {   qDebug()<<"lyrics HTML file opened"<< LYRHTML;
+        QTextStream in(&lyricsFile);
+        QTextStream inHtml(&lyricsHtml);
+        ui->lyrBrowser->setHtml(inHtml.readAll()); //優先選擇HTML
+        qDebug()<<"lyrics page set";
+        QString statusUpdate = QStringLiteral("歌詞載入成功，顯示本地HTML  ")+LYRHTML;
+        ui->statusbar->showMessage(statusUpdate);
+        lyricsFile.close();lyricsHtml.close();
+    }
+    else qDebug()<<"Failed to open lyr file";
+
+
+}
+
 void mp3Player::getMetaData()
 {
     if(ui->tracksPage->currentRow()<0)return;
@@ -114,15 +155,22 @@ void mp3Player::getMetaData()
         ui->TrackDuration->setText(duration);
         ui->TrackTitle->setText(title);
     });
+    //取得線上歌詞
+    processor = new AudioProcessor(); //建立processor
+    QString trackPath = ui->tracksPage->item(ui->tracksPage->currentRow(),2)->text();
+    apiTest(trackPath); //測試API並輸出至debug
+    ui->lyrBrowser->reload();
 }
 
 void mp3Player::on_btnPlayTrack_clicked()
 {
+    QString trackPath = ui->tracksPage->item(ui->tracksPage->currentRow(),2)->text();
     if(currentRow != ui->tracksPage->currentRow()) {
         getMetaData();//如果換歌，重新取得meta
         qDebug()<<"Detected Change currentRow:"<<currentRow<<"-->"<<ui->tracksPage->currentRow()<<" reload meta data";
+        apiTest(trackPath); //重新獲取
+        ui->lyrBrowser->reload();
     }
-
     //if not playing, play track
     if(player->playbackState()==QMediaPlayer::StoppedState)
     {

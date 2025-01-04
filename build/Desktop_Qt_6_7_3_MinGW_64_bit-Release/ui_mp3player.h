@@ -23,6 +23,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTableWidget>
+#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -53,7 +54,7 @@ public:
     QTableWidget *tracksPage;
     QWidget *Tab2;
     QGridLayout *gridLayout_5;
-    QTableWidget *playlistPage;
+    QTextEdit *lyrEdit;
     QLabel *InfoLabel;
     QMenuBar *menubar;
     QStatusBar *statusbar;
@@ -172,11 +173,10 @@ public:
         Tab2->setSizePolicy(sizePolicy);
         gridLayout_5 = new QGridLayout(Tab2);
         gridLayout_5->setObjectName("gridLayout_5");
-        playlistPage = new QTableWidget(Tab2);
-        playlistPage->setObjectName("playlistPage");
-        playlistPage->setMaximumSize(QSize(20000, 20000));
+        lyrEdit = new QTextEdit(Tab2);
+        lyrEdit->setObjectName("lyrEdit");
 
-        gridLayout_5->addWidget(playlistPage, 0, 0, 1, 1);
+        gridLayout_5->addWidget(lyrEdit, 0, 0, 1, 1);
 
         tabWidget->addTab(Tab2, QString());
 
@@ -201,7 +201,7 @@ public:
 
         retranslateUi(mp3Player);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(mp3Player);

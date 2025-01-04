@@ -11,6 +11,9 @@
 #include <QMediaPlayer>
 #include <QtMultimedia>
 
+#include "AudioProcessor.h"
+#include "getlyrics.h"
+#include "shazamrequest.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -51,10 +54,12 @@ private slots:
 
     void autoplayNext();//自動播放下一首
 
-
     void on_tracksPage_cellDoubleClicked(int row, int column);
 
+    void apiTest(QString);//測試API
+
 private:
+    AudioProcessor  *processor;
     Ui::mp3Player   *ui;
     QMediaPlayer    *player;
     QAudioOutput    *audioOutput;
