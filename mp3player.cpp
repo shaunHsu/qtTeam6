@@ -1,6 +1,7 @@
 #include "mp3player.h"
 #include "ui_mp3player.h"
 
+#include <QTimer>
 #include <QThread>
 #include <QAudioDevice>
 #include <QDebug>
@@ -28,6 +29,12 @@ mp3Player::mp3Player(QWidget *parent)
     QStringList colTitle;
     colTitle<<QStringLiteral("曲名")<<QStringLiteral("檔案大小")<<QStringLiteral("檔案路徑");
     ui->tracksPage->setHorizontalHeaderLabels(colTitle);
+
+    //custom timers
+    refreshTimer = new QTimer(this);
+    //refreshTimer->setInterval(1000);
+    //connect(refreshTimer, &QTimer::timeout, this, &mp3Player::updateLyricsHTML);
+
     //SIGNAL SLOT
     connect(player, &QMediaPlayer::positionChanged, this, &mp3Player::updateTrackPos);//播放->更新進度條
     connect(player, &QMediaPlayer::durationChanged, this, &mp3Player::updateTrackDur);//播放->更新進度條
@@ -38,6 +45,7 @@ mp3Player::~mp3Player()
 {
     delete ui;
 }
+
 
 void mp3Player::on_btnScanDir_clicked() //掃描目錄
 {
@@ -124,6 +132,13 @@ void mp3Player::apiTest(QString fileName) {
     processor->processAudioFile(fileName); //處理音檔
     //成功獲取線上歌詞
     //從檔案讀取歌詞頁
+    refreshTimer->singleShot(10000,this,&mp3Player::updateLyricsHTML);//10秒後更新歌詞
+    ui->statusbar->showMessage(QStringLiteral("正在處理線上資源..."));
+    qDebug()<<"API test finished, lyr page updated after 10 secs";
+}
+
+void mp3Player::updateLyricsHTML() //載入HTML
+{
     QFile lyricsFile,lyricsHtml;; //目前選擇兩種都讀
     lyricsFile.setFileName(LYRFILE);//來自API
     lyricsHtml.setFileName(LYRHTML);
@@ -132,7 +147,6 @@ void mp3Player::apiTest(QString fileName) {
         QTextStream in(&lyricsFile);
         QTextStream inHtml(&lyricsHtml);
         QString statusUpdate = QStringLiteral("歌詞載入成功，顯示HTML，暫存副本儲存於 ")+LYRHTML;
-
         ui->lyrBrowser->setHtml(inHtml.readAll()); //優先選擇HTML
         ui->statusbar->showMessage(statusUpdate);
         qDebug()<<"lyrics page set";
@@ -154,6 +168,8 @@ void mp3Player::getMetaData()
         ui->TrackDuration->setText(duration);
         ui->TrackTitle->setText(title);
     });
+    QString trackPath = ui->tracksPage->item(ui->tracksPage->currentRow(),2)->text();
+    apiTest(trackPath); //重新獲取線上資源
 }
 
 void mp3Player::on_btnPlayTrack_clicked()
@@ -162,13 +178,12 @@ void mp3Player::on_btnPlayTrack_clicked()
     if(currentRow != ui->tracksPage->currentRow()) {
         getMetaData();//如果換歌，重新取得meta
         qDebug()<<"Detected Change currentRow:"<<currentRow<<"-->"<<ui->tracksPage->currentRow()<<" reload meta data";
-        apiTest(trackPath); //重新獲取
     }
     //if not playing, play track
     if(player->playbackState()==QMediaPlayer::StoppedState)
     {
 
-        ui->lyrBrowser->reload();
+        ui->lyrBrowser->update();
         currentRow = ui->tracksPage->currentRow(); //紀錄目前位置判斷有沒有換首
         qDebug()<<"currentRow:"<<currentRow;
         player->play();
@@ -176,6 +191,7 @@ void mp3Player::on_btnPlayTrack_clicked()
         qDebug() << "Playing"<<ui->tracksPage->item(ui->tracksPage->currentRow(),0)->text();
         qDebug()<<"track duration:"<<player->duration();
         qDebug()<<"volume:"<<audioOutput->volume();
+        refreshTimer->singleShot(10000,this,&mp3Player::updateLyricsHTML);//10秒後更新歌詞)
     }
     else if(player->playbackState()==QMediaPlayer::PausedState)//if paused, resume
     {

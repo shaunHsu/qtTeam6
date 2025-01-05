@@ -60,7 +60,10 @@ private slots:
 
     void apiTest(QString);//測試API
 
+    void updateLyricsHTML();//更新歌詞
+
 private:
+    QTimer          *refreshTimer;//小定時器
     GetLyrics       *lyricsBot;
     AudioProcessor  *processor;
     Ui::mp3Player   *ui;
