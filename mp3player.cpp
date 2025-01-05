@@ -191,7 +191,6 @@ void mp3Player::on_btnPlayTrack_clicked()
         qDebug() << "Playing"<<ui->tracksPage->item(ui->tracksPage->currentRow(),0)->text();
         qDebug()<<"track duration:"<<player->duration();
         qDebug()<<"volume:"<<audioOutput->volume();
-        refreshTimer->singleShot(10000,this,&mp3Player::updateLyricsHTML);//10秒後更新歌詞)
     }
     else if(player->playbackState()==QMediaPlayer::PausedState)//if paused, resume
     {
@@ -212,9 +211,11 @@ void mp3Player::autoplayNext()
 {
     if(player->mediaStatus()==QMediaPlayer::EndOfMedia)//check if the signal is endofmedia
     {
+        QString trackPath = ui->tracksPage->item(ui->tracksPage->currentRow(),2)->text();
         ui->tracksPage->setCurrentCell(ui->tracksPage->currentRow()+1,0); //do autoplay
         getMetaData();
         player->play();
+        refreshTimer->singleShot(200,this,&mp3Player::updateLyricsHTML);//10秒後更新歌詞
     }
 }
 
