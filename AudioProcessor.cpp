@@ -1,9 +1,10 @@
 
 #include "AudioProcessor.h"
 
+#include <QAudioBuffer>
+#include <QAudioDecoder>
 #include <QDebug>
 #include <QFile>
-#include <QMediaDevices>
 #include <QUrl>
 
 AudioProcessor::AudioProcessor(QObject *parent)

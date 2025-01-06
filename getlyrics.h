@@ -1,7 +1,6 @@
 #ifndef GETLYRICS_H
 #define GETLYRICS_H
 
-#include <QNetworkAccessManager>
 #include <QObject>
 #include <QString>
 
@@ -11,8 +10,8 @@ class GetLyrics : public QObject {
     public:
         explicit GetLyrics(QObject* parent = nullptr);
         QString getLyrics(const QString& title);
-        QString getUrl(){return url;}
-        QByteArray getHtml(){return html;}
+        QString getUrl() { return url; }
+        QByteArray getHtml() { return html; }
 
     private:
         QString url;
