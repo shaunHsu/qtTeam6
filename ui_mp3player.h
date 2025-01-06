@@ -23,6 +23,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTableWidget>
+#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -53,7 +54,7 @@ public:
     QTableWidget *tracksPage;
     QWidget *Tab2;
     QGridLayout *gridLayout_5;
-    QTableWidget *playlistPage;
+    QTextBrowser *lyrBrowser;
     QLabel *InfoLabel;
     QMenuBar *menubar;
     QStatusBar *statusbar;
@@ -172,11 +173,10 @@ public:
         Tab2->setSizePolicy(sizePolicy);
         gridLayout_5 = new QGridLayout(Tab2);
         gridLayout_5->setObjectName("gridLayout_5");
-        playlistPage = new QTableWidget(Tab2);
-        playlistPage->setObjectName("playlistPage");
-        playlistPage->setMaximumSize(QSize(20000, 20000));
+        lyrBrowser = new QTextBrowser(Tab2);
+        lyrBrowser->setObjectName("lyrBrowser");
 
-        gridLayout_5->addWidget(playlistPage, 0, 0, 1, 1);
+        gridLayout_5->addWidget(lyrBrowser, 0, 0, 1, 1);
 
         tabWidget->addTab(Tab2, QString());
 
