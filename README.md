@@ -5,7 +5,7 @@
 2.player會掃描資料夾內的.mp3檔案自動加入清單，如果出現路徑重複會把多餘項目刪除<br>
 ![圖片](https://github.com/user-attachments/assets/17a9646a-fd6c-4f67-8dfe-591267bc06c5)<br>
 
-3.選取任一首播放，同時player會對shazam送出請求嘗試搜尋線上歌詞<br>
+3.選取任一首播放，同時player會對api.genius.com送出請求嘗試搜尋線上歌詞<br>
 ![圖片](https://github.com/user-attachments/assets/c207e2b9-a2d7-4cf0-b3c2-566978f740d9)<br>
 
 4.獲取的歌詞會分別以 txt / html 格式儲存在相同資料夾內，player會顯示html的文字內容<br>
