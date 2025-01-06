@@ -19,10 +19,12 @@
 
 #### 使用庫
 
+-   QAudioBuffer
 -   QAudioDecoder
--   QAudioFormat
 -   QByteArray
 -   QFile
+-   QUrl
+-   QEventLoop
 -   QJsonArray
 -   QJsonDocument
 -   QJsonObject
@@ -30,5 +32,8 @@
 -   QNetworkReply
 -   QNetworkRequest
 -   QString
--   QEventLoop
--   QTextDocument
+
+#### API 使用
+
+-   [Shazam API](https://rapidapi.com/apidojo/api/shazam) ->音樂辨識
+-   [genius API](https://docs.genius.com/) ->歌詞搜尋
