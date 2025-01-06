@@ -6,7 +6,7 @@
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
 
-    // apiTest();
+     apiTest();
 
     mp3Player w;
     w.show();
