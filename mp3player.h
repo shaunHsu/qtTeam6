@@ -56,6 +56,8 @@ private slots:
 
     void test(QString mus);
 
+    void test1(QString mus);
+
     void findMp3Files(const QDir &dir, QStringList &fileList);
 
 private:

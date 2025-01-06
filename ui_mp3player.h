@@ -57,6 +57,8 @@ public:
     QTableWidget *playlistPage;
     QWidget *tab;
     QTextEdit *musicpage;
+    QWidget *tab_2;
+    QTextEdit *musicpageEn;
     QLabel *InfoLabel;
     QMenuBar *menubar;
     QStatusBar *statusbar;
@@ -186,6 +188,12 @@ public:
         musicpage->setObjectName("musicpage");
         musicpage->setGeometry(QRect(3, 4, 761, 361));
         tabWidget->addTab(tab, QString());
+        tab_2 = new QWidget();
+        tab_2->setObjectName("tab_2");
+        musicpageEn = new QTextEdit(tab_2);
+        musicpageEn->setObjectName("musicpageEn");
+        musicpageEn->setGeometry(QRect(3, 4, 771, 361));
+        tabWidget->addTab(tab_2, QString());
 
         mainlay->addWidget(tabWidget, 0, 0, 1, 1);
 
@@ -208,7 +216,7 @@ public:
 
         retranslateUi(mp3Player);
 
-        tabWidget->setCurrentIndex(2);
+        tabWidget->setCurrentIndex(3);
 
 
         QMetaObject::connectSlotsByName(mp3Player);
@@ -228,6 +236,7 @@ public:
         tabWidget->setTabText(tabWidget->indexOf(Tab1), QCoreApplication::translate("mp3Player", "Tracks", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(Tab2), QCoreApplication::translate("mp3Player", "Now Playing", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("mp3Player", "\351\240\201\351\235\242", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("mp3Player", "\351\240\201\351\235\242", nullptr));
         InfoLabel->setText(QString());
     } // retranslateUi
 

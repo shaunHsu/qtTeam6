@@ -29,7 +29,6 @@ mp3Player::mp3Player(QWidget *parent)
     connect(player, &QMediaPlayer::positionChanged, this, &mp3Player::updateTrackPos);//播放->更新進度條
     connect(player, &QMediaPlayer::durationChanged, this, &mp3Player::updateTrackDur);//播放->更新進度條
     connect(player, &QMediaPlayer::mediaStatusChanged,this,&mp3Player::autoplayNext);
-    test("C:/Users/USER/OneDrive/桌面/QT_new/qtTeam6-t2/example_audio/test1.mp3");
 }
 
 mp3Player::~mp3Player()
@@ -135,6 +134,7 @@ void mp3Player::getMetaData()
 
     // 將路徑傳遞到 test 函式
     test(currentTrackPath);
+    test1(currentTrackPath);
 
     // 連接 metadataChanged 信號以處理元數據
     connect(player, &QMediaPlayer::metaDataChanged, this, [this]() {
@@ -268,9 +268,9 @@ void mp3Player::on_tracksPage_cellDoubleClicked(int row, int column)
 
 #include "apiTest.cpp"
 
-void mp3Player::test(QString mus)
+void mp3Player::test(QString mus)//中文
 {
-    //apiTest();
+    // apiTest();
     /// 假设 musicpage 是 QTextEdit 类型的对象
     if (ui->musicpage) {
         QString fileName = mus;
@@ -287,17 +287,35 @@ void mp3Player::test(QString mus)
                 QString songName = infos.at(0);
                 QString songLyrics = lyrics->getLyrics(songName);
 
-                // 替換歌詞中的每個空格為 <br> 標籤，並設置字體大小
-                QString formattedLyrics = songLyrics.replace(" ", "<br><br> ");
+                QString formattedLyrics;
+                for (int i = 0; i < songLyrics.size(); ++i) {
+                    QChar ch = songLyrics.at(i);
 
-                // 在歌詞前後加上 <font> 標籤設置字體大小
-                formattedLyrics = "<div style='text-align: center;'><font size='5'>" + formattedLyrics + "</font>";
+                    if (ch.unicode() >= 0x4E00 && ch.unicode() <= 0x9FFF) {
+                        // 中文字符范围
+                        if (ch.isSpace()) {
+                            formattedLyrics += "<br>";  // 中文空格换行
+                        } else {
+                            formattedLyrics += ch;  // 其他字符直接追加
+                        }
+                    } else {
+                        // 非中文字符直接追加
+                        if (ch.isSpace()) {
+                            formattedLyrics += "<br>";  // 非中文空格换行
+                        } else {
+                            formattedLyrics += ch;  // 其他字符直接追加
+                        }
+                    }
+                }
 
-                // 確保 musicpage 可以顯示 HTML 格式內容
+                // 在歌词前后加上 <font> 标签设置字体大小
+                formattedLyrics = "<div style='text-align: center;'><font size='5'>" + formattedLyrics + "</font></div>";
+
+                // 确保 musicpage 可以显示 HTML 格式内容
                 ui->musicpage->setAcceptRichText(true);  // 支持富文本
-                ui->musicpage->setHtml(formattedLyrics); // 用 HTML 格式顯示歌詞
+                ui->musicpage->setHtml(formattedLyrics); // 用 HTML 格式显示歌词
 
-                qDebug() << "Set musicpage to display lyrics of the song: " << formattedLyrics;
+                qDebug() << "Set musicpage to display lyrics of the song (Chinese): " << formattedLyrics;
             } else {
                 qDebug() << "No song information retrieved.";
             }
@@ -306,6 +324,72 @@ void mp3Player::test(QString mus)
         processor->processAudioFile(fileName);
     } else {
         qDebug() << "musicpage is null";
+    }
+}
+
+void mp3Player::test1(QString mus)//英文
+{
+    // apiTest();
+    /// 假设 musicpageEn 是 QTextEdit 类型的对象
+    if (ui->musicpageEn) {
+        QString fileName = mus;
+
+        AudioProcessor *processor = new AudioProcessor();
+        ShazamRequest *request = new ShazamRequest();
+        GetLyrics *lyrics = new GetLyrics();
+
+        QObject::connect(processor, &AudioProcessor::processingFinished,
+                         [=]() { request->sendRequest(processor->audioData); });
+        QObject::connect(request, &ShazamRequest::finished, [=]() {
+            QStringList infos = request->getInfo(request->response);
+            if (!infos.isEmpty()) {
+                QString songName = infos.at(0);
+                QString songLyrics = lyrics->getLyrics(songName);
+
+                QString formattedLyrics;
+                bool lastCharWasSpace = true; // 标记前一个字符是否为空格
+                bool lastCharWasNewline = false; // 标记前一个字符是否是换行符
+
+                for (int i = 0; i < songLyrics.size(); ++i) {
+                    QChar ch = songLyrics.at(i);
+
+                    if (ch.isSpace()) {
+                        // 空格
+                        formattedLyrics += " ";
+                        lastCharWasSpace = true;
+                        lastCharWasNewline = false;
+                    } else if (ch.isUpper()) {
+                        // 英文字母大写
+                        if (!lastCharWasSpace && !lastCharWasNewline) {
+                            formattedLyrics += "<br>"; // 换行，但仅在前一个字符不是空格或换行时
+                        }
+                        formattedLyrics += ch;
+                        lastCharWasSpace = false;
+                        lastCharWasNewline = false;
+                    } else {
+                        // 其他字符直接追加
+                        formattedLyrics += ch;
+                        lastCharWasSpace = false;
+                        lastCharWasNewline = false;
+                    }
+                }
+
+                // 在歌词前后加上 <font> 标签设置字体大小
+                formattedLyrics = "<div style='text-align: center;'><font size='5'>" + formattedLyrics + "</font></div>";
+
+                // 确保 musicpageEn 可以显示 HTML 格式内容
+                ui->musicpageEn->setAcceptRichText(true);  // 支持富文本
+                ui->musicpageEn->setHtml(formattedLyrics); // 用 HTML 格式显示歌词
+
+                qDebug() << "Set musicpageEn to display lyrics of the song (English): " << formattedLyrics;
+            } else {
+                qDebug() << "No song information retrieved.";
+            }
+        });
+
+        processor->processAudioFile(fileName);
+    } else {
+        qDebug() << "musicpageEn is null";
     }
 }
 

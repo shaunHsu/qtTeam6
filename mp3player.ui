@@ -28,6 +28,26 @@
       </property>
       <item row="1" column="0">
        <layout class="QGridLayout" name="playerctrl">
+        <item row="1" column="2">
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Orientation::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="0">
+         <widget class="QSlider" name="trackPosSlider">
+          <property name="orientation">
+           <enum>Qt::Orientation::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
         <item row="2" column="0" colspan="4">
          <layout class="QGridLayout" name="gridLayout">
           <item row="0" column="3">
@@ -81,10 +101,10 @@
           </item>
          </layout>
         </item>
-        <item row="1" column="0">
-         <widget class="QSlider" name="trackPosSlider">
-          <property name="orientation">
-           <enum>Qt::Orientation::Horizontal</enum>
+        <item row="0" column="3">
+         <widget class="QPushButton" name="btnScanDir">
+          <property name="text">
+           <string>Scan..</string>
           </property>
          </widget>
         </item>
@@ -102,26 +122,6 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="3">
-         <widget class="QPushButton" name="btnScanDir">
-          <property name="text">
-           <string>Scan..</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Orientation::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
        </layout>
       </item>
       <item row="0" column="0">
@@ -133,7 +133,7 @@
          </sizepolicy>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>3</number>
         </property>
         <widget class="QWidget" name="Tab1">
          <property name="sizePolicy">
@@ -183,7 +183,7 @@
         </widget>
         <widget class="QWidget" name="tab">
          <attribute name="title">
-          <string>頁面</string>
+          <string>chinese</string>
          </attribute>
          <widget class="QTextEdit" name="musicpage">
           <property name="geometry">
@@ -191,6 +191,21 @@
             <x>3</x>
             <y>4</y>
             <width>761</width>
+            <height>361</height>
+           </rect>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="tab_2">
+         <attribute name="title">
+          <string>english</string>
+         </attribute>
+         <widget class="QTextEdit" name="musicpageEn">
+          <property name="geometry">
+           <rect>
+            <x>3</x>
+            <y>4</y>
+            <width>771</width>
             <height>361</height>
            </rect>
           </property>
