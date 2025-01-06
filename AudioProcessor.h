@@ -2,7 +2,6 @@
 #define AUDIOPROCESSOR_H
 
 #include <QAudioDecoder>
-#include <QAudioFormat>
 #include <QByteArray>
 #include <QObject>
 
