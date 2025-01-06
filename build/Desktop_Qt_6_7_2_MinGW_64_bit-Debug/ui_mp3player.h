@@ -193,7 +193,7 @@ public:
         mp3Player->setCentralWidget(centralwidget);
         menubar = new QMenuBar(mp3Player);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 25));
+        menubar->setGeometry(QRect(0, 0, 800, 26));
         mp3Player->setMenuBar(menubar);
         statusbar = new QStatusBar(mp3Player);
         statusbar->setObjectName("statusbar");
@@ -201,7 +201,7 @@ public:
 
         retranslateUi(mp3Player);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(mp3Player);

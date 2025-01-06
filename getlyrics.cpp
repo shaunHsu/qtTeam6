@@ -30,16 +30,16 @@ int GetLyrics::getLyricsUrl(const QString& title) {
         qDebug() << "Got lyrics URL.";
         QByteArray response = reply->readAll();
 
-        QString jsonString = QString::fromUtf8(response);
-        QFile jsonFile("response1.json");
-        if (jsonFile.open(QIODevice::WriteOnly)) {
-            jsonFile.write(jsonString.toUtf8());
-            jsonFile.close();
-            qDebug() << "Response written to JSON file.";
-        } else {
-            qDebug() << "Failed to open file for writing.";
-        }
-        qDebug() << response;
+        // QString jsonString = QString::fromUtf8(response);
+        // QFile jsonFile("response1.json");
+        // if (jsonFile.open(QIODevice::WriteOnly)) {
+        //     jsonFile.write(jsonString.toUtf8());
+        //     jsonFile.close();
+        //     qDebug() << "Response written to JSON file.";
+        // } else {
+        //     qDebug() << "Failed to open file for writing.";
+        // }
+        // qDebug() << response;
 
         QJsonDocument jsonDoc(QJsonDocument::fromJson(response));
         QJsonObject jsonObj = jsonDoc.object();
@@ -74,15 +74,15 @@ void GetLyrics::getLyricsHtml() {
         qDebug() << "Got lyrics HTML.";
         html = reply->readAll();
 
-        QString htmlString = QString::fromUtf8(html);
-        QFile htmlFile(HTMLPATH);
-        if (htmlFile.open(QIODevice::WriteOnly)) {
-            htmlFile.write(htmlString.toUtf8());
-            htmlFile.close();
-            qDebug() << "Lyrics written to HTML file." << HTMLPATH;
-        } else {
-            qDebug() << "Failed to open file for writing.";
-        }
+        // QString htmlString = QString::fromUtf8(html);
+        // QFile htmlFile(HTMLPATH);
+        // if (htmlFile.open(QIODevice::WriteOnly)) {
+        //     htmlFile.write(htmlString.toUtf8());
+        //     htmlFile.close();
+        //     qDebug() << "Lyrics written to HTML file." << HTMLPATH;
+        // } else {
+        //     qDebug() << "Failed to open file for writing.";
+        // }
 
     } else {
         qDebug() << "Error: " << reply->errorString();
@@ -103,19 +103,27 @@ QString GetLyrics::getLyricsText() {
         QString lyricsWithHtml = i.captured(1); // 獲取 <div> 的內容
 
         // 移除 HTML 標籤
-        QRegularExpression tagRegex(R"(<[^>]+>)");
-        QString lyricsPlainText = lyricsWithHtml.remove(tagRegex);
+        // QRegularExpression tagRegex(R"(<[^>]+>)");
+        // QString lyricsPlainText = lyricsWithHtml.remove(tagRegex);
 
-        results.append(lyricsPlainText.trimmed());
+        results.append(lyricsWithHtml.trimmed());
+    }
+    QFile htmlFile(HTMLPATH);
+    if (htmlFile.open(QIODevice::WriteOnly)) {
+        htmlFile.write(results.join("\n").toUtf8());
+        htmlFile.close();
+        qDebug() << "Lyrics written to HTML file." << HTMLPATH;
+    } else {
+        qDebug() << "Failed to open file for writing.";
     }
 
-    QString tempFile = FILEPATH;
-    QFile lyricsFile(tempFile);
-    if (lyricsFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        lyricsFile.write(results.join("\n").toUtf8());
-        lyricsFile.close();
-        qDebug() << "Lyrics written to text file." << tempFile;
-    }
+    // QString tempFile = FILEPATH;
+    // QFile lyricsFile(tempFile);
+    // if (lyricsFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
+    //     lyricsFile.write(results.join("\n").toUtf8());
+    //     lyricsFile.close();
+    //     qDebug() << "Lyrics written to text file." << tempFile;
+    // }
 
     qDebug() << "Parse lyrics text done.";
     return results.join(" ");

@@ -5,7 +5,7 @@
 #include "shazamrequest.h"
 
 void apiTest() { // 直接把這些內容複製到你要的檔案就好
-    QString fileName = "C:/code/qt/qtTeam6/example_audio/test1.mp3";
+    QString fileName = "C:/code/qt/qtTeam6/example_audio/test3.mp3";
 
     AudioProcessor *processor = new AudioProcessor();
     ShazamRequest *request = new ShazamRequest();
