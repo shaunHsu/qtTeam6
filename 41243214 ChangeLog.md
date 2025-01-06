@@ -26,3 +26,14 @@ mainlayout延伸<br>
 tab物件延伸<br>
 IDE中qDebug訊息補充<br>
 ![圖片](https://github.com/user-attachments/assets/0dd66382-18ed-43be-8072-b1811a151369)
+##
+1/5<br>
+套用歌詞搜尋API，搜尋結果會先儲存至txt/html檔案再由tab2的QtextBrowser設置<br>
+目前因為請求回應有延遲所以會讀取舊版本的檔案<br>
+![圖片](https://github.com/user-attachments/assets/37b74536-9cc1-4ea1-a36d-546b336b99e5)
+##
+1/6<br>
+加入timer解決API延遲問題，獲取完成後程式會等待10秒再載入HTML檔案<br>
+fix: 在自動換首時也會觸發API<br>
+![Screenshot 2025-01-06 065744](https://github.com/user-attachments/assets/924a740d-5cfb-4975-accc-c8cbc03542b7)<br>
+![Screenshot 2025-01-06 070011](https://github.com/user-attachments/assets/0f9f3059-ccbf-4cb9-95fa-48d9785dc91b)

@@ -176,14 +176,7 @@
          </attribute>
          <layout class="QGridLayout" name="gridLayout_5">
           <item row="0" column="0">
-           <widget class="QTableWidget" name="playlistPage">
-            <property name="maximumSize">
-             <size>
-              <width>20000</width>
-              <height>20000</height>
-             </size>
-            </property>
-           </widget>
+           <widget class="QTextBrowser" name="lyrBrowser"/>
           </item>
          </layout>
         </widget>

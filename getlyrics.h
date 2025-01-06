@@ -11,6 +11,8 @@ class GetLyrics : public QObject {
     public:
         explicit GetLyrics(QObject* parent = nullptr);
         QString getLyrics(const QString& title);
+        QString getUrl(){return url;}
+        QByteArray getHtml(){return html;}
 
     private:
         QString url;
